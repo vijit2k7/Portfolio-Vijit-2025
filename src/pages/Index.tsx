@@ -8,6 +8,8 @@ import {
   ArrowDownIcon,
   Menu,
   X,
+  BookOpenIcon,
+  BriefcaseIcon,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -21,34 +23,69 @@ const projects = [
   },
   {
     id: 2,
-    title: "E-commerce Platform",
-    description: "Full-featured online shopping platform with payment integration.",
-    technologies: ["React", "Node.js", "MongoDB"],
+    title: "React Native Mobile App",
+    description: "Cross-platform mobile application with seamless user experience.",
+    technologies: ["React Native", "JavaScript", "Redux"],
     image: "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?q=80&w=1974&auto=format&fit=crop",
   },
   {
     id: 3,
-    title: "Weather Application",
-    description: "Real-time weather forecasting with location detection.",
-    technologies: ["React", "Weather API", "Geolocation"],
+    title: "E-commerce Platform",
+    description: "Full-featured online shopping platform with payment integration.",
+    technologies: ["React", "Node.js", "MongoDB"],
     image: "https://images.unsplash.com/photo-1534088568595-a066f410bcda?q=80&w=2051&auto=format&fit=crop",
   },
   {
     id: 4,
-    title: "Task Management System",
-    description: "Collaborative project management tool with real-time updates.",
-    technologies: ["React", "Firebase", "Redux"],
-    image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=2072&auto=format&fit=crop",
+    title: "Machine Learning Application",
+    description: "Smart prediction system using advanced algorithms.",
+    technologies: ["Python", "TensorFlow", "Flask"],
+    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2072&auto=format&fit=crop",
   },
 ];
 
 const skills = [
-  { name: "React", level: 90 },
+  { name: "React.js", level: 90 },
   { name: "JavaScript", level: 85 },
   { name: "TypeScript", level: 80 },
-  { name: "Node.js", level: 75 },
+  { name: "Python", level: 75 },
   { name: "CSS/SCSS", level: 85 },
-  { name: "UI/UX Design", level: 70 },
+  { name: "React Native", level: 70 },
+];
+
+const experiences = [
+  {
+    title: "Full Stack Software Engineer",
+    company: "GeekyAnts",
+    period: "Jan 2023 - Present",
+    description: "Working as a Full Stack developer focusing on React.js and React Native technologies. Building responsive web and mobile applications."
+  },
+  {
+    title: "Software Developer",
+    company: "Niyo Solutions Inc.",
+    period: "Apr 2021 - Jan 2023",
+    description: "Developed banking applications using React Native. Created 10+ reusable components used by multiple teams."
+  },
+  {
+    title: "Software Developer",
+    company: "Coditation Systems Pvt. Ltd.",
+    period: "July 2020 - Apr 2021",
+    description: "Worked on React.js and React Native projects. Implemented responsive designs and maintained existing applications."
+  },
+  {
+    title: "Software Developer Intern",
+    company: "NBCC India Ltd.",
+    period: "Jan 2020 - Apr 2020",
+    description: "Gained hands-on experience in web development and contributed to internal projects."
+  }
+];
+
+const education = [
+  {
+    degree: "B.Tech in Computer Science",
+    institution: "Dr. A.P.J. Abdul Kalam Technical University",
+    period: "2016 - 2020",
+  }
 ];
 
 const Index = () => {
@@ -106,13 +143,13 @@ const Index = () => {
       <header className="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-neutral-100">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <Link to="/" className="text-2xl font-semibold tracking-tighter">
-            <span className="text-neutral-900">Portfolio</span>
+            <span className="text-neutral-900">Vijit</span>
             <span className="text-primary">.</span>
           </Link>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            {["home", "about", "skills", "projects", "contact"].map((item) => (
+            {["home", "about", "experience", "skills", "projects", "contact"].map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
@@ -158,7 +195,7 @@ const Index = () => {
             transition={{ duration: 0.3 }}
           >
             <nav className="flex flex-col space-y-6">
-              {["home", "about", "skills", "projects", "contact"].map((item) => (
+              {["home", "about", "experience", "skills", "projects", "contact"].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
@@ -190,13 +227,13 @@ const Index = () => {
           >
             <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
               <span className="block">Hello, I'm</span>
-              <span className="text-primary">John Doe</span>
+              <span className="text-primary">Vijit Mishra</span>
             </h1>
             <h2 className="text-xl md:text-2xl text-neutral-600 mb-8">
-              Frontend Developer & UI Designer
+              Full Stack Software Engineer
             </h2>
             <p className="text-neutral-600 mb-10 max-w-2xl mx-auto">
-              I craft responsive websites where technology meets creativity. I'm passionate about building excellent software that improves the lives of those around me.
+              I specialize in building modern web and mobile applications using React.js and React Native. I'm passionate about creating exceptional user experiences and solving complex problems.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <button
@@ -251,7 +288,7 @@ const Index = () => {
                   <div className="aspect-square overflow-hidden rounded-xl shadow-lg relative">
                     <div className="absolute inset-0 bg-primary/10"></div>
                     <img 
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" 
+                      src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=2070&auto=format&fit=crop" 
                       alt="Profile" 
                       className="w-full h-full object-cover"
                     />
@@ -261,31 +298,89 @@ const Index = () => {
                 <div className="w-full md:w-2/3">
                   <h3 className="text-xl font-semibold mb-4">Who I am</h3>
                   <p className="text-neutral-600 mb-4">
-                    I'm a Frontend Developer based in San Francisco, CA, with a passion for building beautiful, responsive websites and web applications. I specialize in JavaScript, React, and modern frontend technologies.
+                    I'm a Full Stack Software Engineer based in Indore, India, with a passion for building modern web and mobile applications. I specialize in JavaScript, React.js, React Native, and related technologies.
                   </p>
                   <p className="text-neutral-600 mb-6">
-                    With 5+ years of experience in web development, I've worked on a variety of projects ranging from small business websites to large enterprise applications. I focus on writing clean, maintainable code and creating intuitive user experiences.
+                    With over 3 years of experience in software development, I've worked on a variety of projects ranging from banking applications to e-commerce platforms. I focus on writing clean, maintainable code and creating intuitive user experiences.
                   </p>
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <h4 className="font-medium">Name:</h4>
-                      <p className="text-neutral-600">John Doe</p>
+                      <p className="text-neutral-600">Vijit Mishra</p>
                     </div>
                     <div>
                       <h4 className="font-medium">Email:</h4>
-                      <p className="text-neutral-600">john@example.com</p>
+                      <p className="text-neutral-600">mishra.vijit1@gmail.com</p>
                     </div>
                     <div>
                       <h4 className="font-medium">Location:</h4>
-                      <p className="text-neutral-600">San Francisco, CA</p>
+                      <p className="text-neutral-600">Indore, India</p>
                     </div>
                     <div>
                       <h4 className="font-medium">Availability:</h4>
-                      <p className="text-neutral-600">Open to offers</p>
+                      <p className="text-neutral-600">Full-time</p>
                     </div>
                   </div>
                 </div>
+              </div>
+              
+              {/* Education Section */}
+              <div className="mt-16">
+                <h3 className="text-xl font-semibold mb-6 flex items-center">
+                  <BookOpenIcon size={20} className="mr-2 text-primary" />
+                  Education
+                </h3>
+                <div className="space-y-6">
+                  {education.map((edu, index) => (
+                    <div key={index} className="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                      <h4 className="font-semibold">{edu.degree}</h4>
+                      <p className="text-neutral-600">{edu.institution}</p>
+                      <p className="text-sm text-neutral-500">{edu.period}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+        
+        {/* Experience Section */}
+        <section 
+          id="experience" 
+          className="py-20 bg-neutral-50"
+        >
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="max-w-3xl mx-auto"
+            >
+              <h2 className="text-3xl font-bold mb-2 text-center">Work Experience</h2>
+              <div className="w-20 h-1 bg-primary mx-auto mb-12"></div>
+              
+              <div className="space-y-8">
+                {experiences.map((exp, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-primary"
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                      <h3 className="text-lg font-semibold">{exp.title}</h3>
+                      <span className="text-sm text-neutral-500">{exp.period}</span>
+                    </div>
+                    <p className="text-primary font-medium mb-3 flex items-center">
+                      <BriefcaseIcon size={16} className="mr-1" /> {exp.company}
+                    </p>
+                    <p className="text-neutral-600">{exp.description}</p>
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
           </div>
@@ -294,7 +389,7 @@ const Index = () => {
         {/* Skills Section */}
         <section 
           id="skills" 
-          className="py-20 bg-neutral-50"
+          className="py-20 bg-white"
         >
           <div className="container mx-auto px-6">
             <motion.div
@@ -330,7 +425,7 @@ const Index = () => {
               <div className="mt-16 bg-white p-8 rounded-lg shadow-sm">
                 <h3 className="text-xl font-semibold mb-6 text-center">Other Expertise</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                  {["Git", "Webpack", "RESTful APIs", "GraphQL", "Responsive Design", "UI/UX", "Figma", "Jest"].map((item, index) => (
+                  {["Git", "Redux", "RESTful APIs", "MongoDB", "Firebase", "UI/UX", "Tailwind CSS", "Express.js"].map((item, index) => (
                     <div 
                       key={index}
                       className="py-2 px-4 bg-neutral-50 rounded-md text-center border border-neutral-100"
@@ -347,7 +442,7 @@ const Index = () => {
         {/* Projects Section */}
         <section 
           id="projects" 
-          className="py-20 bg-white"
+          className="py-20 bg-neutral-50"
         >
           <div className="container mx-auto px-6">
             <motion.div
@@ -407,7 +502,7 @@ const Index = () => {
         {/* Contact Section */}
         <section 
           id="contact" 
-          className="py-20 bg-neutral-50"
+          className="py-20 bg-white"
         >
           <div className="container mx-auto px-6">
             <motion.div
@@ -427,15 +522,15 @@ const Index = () => {
                     <div className="space-y-6">
                       <div className="flex items-center space-x-4">
                         <MailIcon size={20} />
-                        <span>john@example.com</span>
+                        <span>mishra.vijit1@gmail.com</span>
                       </div>
                       <div className="flex items-center space-x-4">
                         <GithubIcon size={20} />
-                        <span>github.com/johndoe</span>
+                        <span>github.com/vijit</span>
                       </div>
                       <div className="flex items-center space-x-4">
                         <LinkedinIcon size={20} />
-                        <span>linkedin.com/in/johndoe</span>
+                        <span>linkedin.com/in/vijit-mishra-b01355188</span>
                       </div>
                     </div>
                   </div>
@@ -505,10 +600,10 @@ const Index = () => {
       </main>
       
       {/* Footer */}
-      <footer className="py-8 bg-white border-t border-neutral-100">
+      <footer className="py-8 bg-neutral-50 border-t border-neutral-100">
         <div className="container mx-auto px-6 text-center">
           <p className="text-neutral-600">
-            © {new Date().getFullYear()} John Doe. All rights reserved.
+            © {new Date().getFullYear()} Vijit Mishra. All rights reserved.
           </p>
         </div>
       </footer>
