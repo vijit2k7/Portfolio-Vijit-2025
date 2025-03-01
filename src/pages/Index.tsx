@@ -13,6 +13,11 @@ import {
   GlobeIcon,
   PhoneIcon,
   MapPinIcon,
+  Sparkles,
+  Code,
+  Database,
+  Server,
+  Layout,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -189,11 +194,11 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-neutral-50 text-neutral-900 font-sans">
       {/* Header/Navigation */}
-      <header className="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-neutral-100">
+      <header className="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-neutral-100">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <Link to="/" className="text-2xl font-semibold tracking-tighter">
             <span className="text-neutral-900">Vijit</span>
-            <span className="text-primary">.</span>
+            <span className="gradient-text font-bold">.</span>
           </Link>
           
           {/* Desktop Navigation */}
@@ -204,7 +209,7 @@ const Index = () => {
                 onClick={() => scrollToSection(item)}
                 className={`relative text-base font-medium capitalize transition-colors ${
                   activeSection === item
-                    ? "text-primary"
+                    ? "gradient-text"
                     : "text-neutral-600 hover:text-primary"
                 }`}
               >
@@ -212,7 +217,7 @@ const Index = () => {
                 {activeSection === item && (
                   <motion.span
                     layoutId="activeSection"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-purple-400 rounded-full"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
@@ -237,7 +242,7 @@ const Index = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
-            className="fixed inset-0 z-40 bg-white pt-24 px-6"
+            className="fixed inset-0 z-40 bg-white/95 backdrop-blur-md pt-24 px-6"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -250,7 +255,7 @@ const Index = () => {
                   onClick={() => scrollToSection(item)}
                   className={`text-xl font-medium capitalize text-left transition-colors ${
                     activeSection === item
-                      ? "text-primary"
+                      ? "gradient-text"
                       : "text-neutral-600"
                   }`}
                 >
@@ -266,28 +271,62 @@ const Index = () => {
         {/* Hero Section */}
         <section 
           id="home" 
-          className="min-h-[85vh] flex flex-col justify-center items-center text-center px-6"
+          className="min-h-[85vh] flex flex-col justify-center items-center text-center px-6 relative overflow-hidden"
         >
+          {/* Background Animation Elements */}
+          <div className="absolute inset-0 -z-10 overflow-hidden">
+            <motion.div 
+              className="absolute top-20 right-[20%] w-64 h-64 rounded-full bg-primary/5 blur-3xl" 
+              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.2, 0.3] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div 
+              className="absolute bottom-20 left-[30%] w-72 h-72 rounded-full bg-purple-400/5 blur-3xl" 
+              animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.3, 0.2] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            />
+          </div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="max-w-3xl mx-auto"
           >
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="inline-block mb-3"
+            >
+              <span className="inline-flex items-center px-3 py-1 text-sm rounded-full bg-primary/10 text-primary">
+                <Sparkles size={14} className="mr-1.5 animate-pulse-soft" /> Senior Software Engineer
+              </span>
+            </motion.div>
+            
             <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-              <span className="block">Hello, I'm</span>
-              <span className="text-primary">Vijit Mishra</span>
+              <span className="block mb-2">Hello, I'm</span>
+              <span className="gradient-text">Vijit Mishra</span>
             </h1>
-            <h2 className="text-xl md:text-2xl text-neutral-600 mb-8">
-              Senior Software Engineer
-            </h2>
-            <p className="text-neutral-600 mb-10 max-w-2xl mx-auto">
+            
+            <motion.p 
+              className="text-neutral-600 mb-10 max-w-2xl mx-auto text-lg"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
               FullStack Engineer with nearly 8+ years of experience in Software Design & Development. I specialize in building modern web applications and have international exposure across multiple markets including Singapore, Malaysia, Indonesia, and Vietnam.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
+            </motion.p>
+            
+            <motion.div 
+              className="flex flex-col sm:flex-row justify-center gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+            >
               <button
                 onClick={() => scrollToSection("contact")}
-                className="px-8 py-3 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+                className="px-8 py-3 bg-gradient-to-r from-primary to-purple-500 text-white rounded-md hover:opacity-90 transition-colors animated-border"
               >
                 Contact Me
               </button>
@@ -297,7 +336,7 @@ const Index = () => {
               >
                 View My Work
               </button>
-            </div>
+            </motion.div>
           </motion.div>
           
           <motion.div 
@@ -309,7 +348,7 @@ const Index = () => {
             <button
               onClick={() => scrollToSection("about")}
               aria-label="Scroll down"
-              className="text-neutral-400 hover:text-primary transition-colors"
+              className="text-primary hover:text-primary/80 transition-colors"
             >
               <ArrowDownIcon size={28} />
             </button>
@@ -330,22 +369,26 @@ const Index = () => {
               className="max-w-3xl mx-auto"
             >
               <h2 className="text-3xl font-bold mb-2 text-center">About Me</h2>
-              <div className="w-20 h-1 bg-primary mx-auto mb-10"></div>
+              <div className="w-20 h-1 bg-gradient-to-r from-primary to-purple-400 mx-auto mb-10"></div>
               
               <div className="flex flex-col md:flex-row gap-10 items-center">
                 <div className="w-full md:w-1/3 mb-8 md:mb-0">
-                  <div className="aspect-square overflow-hidden rounded-xl shadow-lg relative">
-                    <div className="absolute inset-0 bg-primary/10"></div>
+                  <motion.div 
+                    className="aspect-square overflow-hidden rounded-xl shadow-xl relative"
+                    whileHover={{ scale: 1.03 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-500/20"></div>
                     <img 
                       src="public/lovable-uploads/ffb6ce1b-cdf8-469f-b425-4c0d3785ccf7.png" 
                       alt="Vijit Mishra" 
                       className="w-full h-full object-cover"
                     />
-                  </div>
+                  </motion.div>
                 </div>
                 
                 <div className="w-full md:w-2/3">
-                  <h3 className="text-xl font-semibold mb-4">Who I am</h3>
+                  <h3 className="text-xl font-semibold mb-4 gradient-text">Who I am</h3>
                   <p className="text-neutral-600 mb-4">
                     I'm a Senior Software Engineer based in Kuala Lumpur, Malaysia, with a passion for building modern web applications. I specialize in ReactJS, NextJS, Redux, Node.js, and related technologies.
                   </p>
@@ -354,20 +397,20 @@ const Index = () => {
                   </p>
                   
                   <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <h4 className="font-medium">Name:</h4>
+                    <div className="p-4 rounded-lg bg-neutral-50 hover:shadow-md transition-shadow">
+                      <h4 className="font-medium text-primary">Name:</h4>
                       <p className="text-neutral-600">Vijit Mishra</p>
                     </div>
-                    <div>
-                      <h4 className="font-medium">Email:</h4>
+                    <div className="p-4 rounded-lg bg-neutral-50 hover:shadow-md transition-shadow">
+                      <h4 className="font-medium text-primary">Email:</h4>
                       <p className="text-neutral-600">vijit2k7@yahoo.in</p>
                     </div>
-                    <div>
-                      <h4 className="font-medium">Location:</h4>
+                    <div className="p-4 rounded-lg bg-neutral-50 hover:shadow-md transition-shadow">
+                      <h4 className="font-medium text-primary">Location:</h4>
                       <p className="text-neutral-600">Kuala Lumpur, Malaysia</p>
                     </div>
-                    <div>
-                      <h4 className="font-medium">Phone:</h4>
+                    <div className="p-4 rounded-lg bg-neutral-50 hover:shadow-md transition-shadow">
+                      <h4 className="font-medium text-primary">Phone:</h4>
                       <p className="text-neutral-600">+60173400070</p>
                     </div>
                   </div>
@@ -380,16 +423,24 @@ const Index = () => {
                 <div>
                   <h3 className="text-xl font-semibold mb-6 flex items-center">
                     <BookOpenIcon size={20} className="mr-2 text-primary" />
-                    Education
+                    <span className="gradient-text">Education</span>
                   </h3>
                   <div className="space-y-6">
                     {education.map((edu, index) => (
-                      <div key={index} className="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                      <motion.div 
+                        key={index} 
+                        className="glass-card p-6 rounded-lg"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                        whileHover={{ y: -5 }}
+                      >
                         <h4 className="font-semibold">{edu.degree}</h4>
                         <p className="text-neutral-600">{edu.institution}, {edu.location}</p>
                         <p className="text-sm text-neutral-500">{edu.period}</p>
                         <p className="text-sm text-neutral-600 mt-2">{edu.details}</p>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
@@ -398,11 +449,19 @@ const Index = () => {
                 <div>
                   <h3 className="text-xl font-semibold mb-6 flex items-center">
                     <BookOpenIcon size={20} className="mr-2 text-primary" />
-                    Certifications
+                    <span className="gradient-text">Certifications</span>
                   </h3>
                   <div className="space-y-6">
                     {certifications.map((cert, index) => (
-                      <div key={index} className="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                      <motion.div 
+                        key={index} 
+                        className="glass-card p-6 rounded-lg"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                        whileHover={{ y: -5 }}
+                      >
                         <h4 className="font-semibold">{cert.name}</h4>
                         <p className="text-neutral-600">{cert.issuer}</p>
                         <p className="text-sm text-neutral-500">{cert.period}</p>
@@ -415,7 +474,7 @@ const Index = () => {
                           <GlobeIcon size={14} className="mr-1" />
                           View Certificate
                         </a>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
@@ -427,9 +486,13 @@ const Index = () => {
         {/* Experience Section */}
         <section 
           id="experience" 
-          className="py-20 bg-neutral-50"
+          className="py-20 bg-neutral-50 relative overflow-hidden"
         >
-          <div className="container mx-auto px-6">
+          {/* Background Elements */}
+          <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 rounded-full blur-3xl -z-10"></div>
+          <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-purple-400/5 rounded-full blur-3xl -z-10"></div>
+          
+          <div className="container mx-auto px-6 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -438,20 +501,20 @@ const Index = () => {
               className="max-w-3xl mx-auto"
             >
               <h2 className="text-3xl font-bold mb-2 text-center">Work Experience</h2>
-              <div className="w-20 h-1 bg-primary mx-auto mb-12"></div>
+              <div className="w-20 h-1 bg-gradient-to-r from-primary to-purple-400 mx-auto mb-12"></div>
               
               <div className="space-y-8">
                 {experiences.map((exp, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-primary"
+                    className="bg-white p-6 rounded-lg shadow-md border-l-4 border-primary hover:shadow-xl transition-shadow"
                   >
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                      <h3 className="text-lg font-semibold">{exp.title}</h3>
+                      <h3 className="text-lg font-semibold gradient-text">{exp.title}</h3>
                       <span className="text-sm text-neutral-500">{exp.period}</span>
                     </div>
                     <p className="text-primary font-medium mb-2 flex items-center">
@@ -471,8 +534,23 @@ const Index = () => {
         {/* Skills Section */}
         <section 
           id="skills" 
-          className="py-20 bg-white"
+          className="py-20 bg-white relative overflow-hidden"
         >
+          {/* Dynamic Background Elements */}
+          <motion.div 
+            className="absolute -right-20 top-20 w-72 h-72 rounded-full bg-gradient-to-br from-purple-400/10 to-primary/10 blur-3xl -z-10"
+            animate={{ 
+              scale: [1, 1.1, 1],
+              opacity: [0.3, 0.2, 0.3],
+              rotate: 360
+            }}
+            transition={{ 
+              duration: 15, 
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          />
+          
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -482,21 +560,27 @@ const Index = () => {
               className="max-w-4xl mx-auto"
             >
               <h2 className="text-3xl font-bold mb-2 text-center">My Skills</h2>
-              <div className="w-20 h-1 bg-primary mx-auto mb-12"></div>
+              <div className="w-20 h-1 bg-gradient-to-r from-primary to-purple-400 mx-auto mb-12"></div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 {skills.map((skill, index) => (
                   <div key={index}>
                     <div className="flex justify-between mb-2">
-                      <h3 className="font-medium">{skill.name}</h3>
+                      <h3 className="font-medium flex items-center">
+                        {skill.name.includes("React") && <Code size={16} className="mr-2 text-primary" />}
+                        {skill.name.includes("HTML") && <Layout size={16} className="mr-2 text-primary" />}
+                        {skill.name.includes("Redux") && <Database size={16} className="mr-2 text-primary" />}
+                        {skill.name.includes("Node") && <Server size={16} className="mr-2 text-primary" />}
+                        {skill.name}
+                      </h3>
                       <span className="text-neutral-500">{skill.level}%</span>
                     </div>
-                    <div className="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
+                    <div className="w-full skill-bar">
                       <motion.div 
-                        className="h-full bg-primary rounded-full"
+                        className="skill-progress"
                         initial={{ width: 0 }}
                         whileInView={{ width: `${skill.level}%` }}
-                        transition={{ duration: 1, delay: 0.1 * index }}
+                        transition={{ duration: 1.2, delay: 0.1 * index, ease: "easeOut" }}
                         viewport={{ once: true }}
                       />
                     </div>
@@ -504,19 +588,30 @@ const Index = () => {
                 ))}
               </div>
               
-              <div className="mt-16 bg-white p-8 rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold mb-6 text-center">Other Expertise</h3>
+              <motion.div 
+                className="mt-16 bg-white p-8 rounded-lg shadow-lg glass-card"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="text-xl font-semibold mb-6 text-center gradient-text">Other Expertise</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                   {["Git/GitHub", "DevOps (CICD)", "Apache Kafka/Camel", "Machine Learning", "Akamai (CDN)", "Micro Frontends", "Image Optimization", "Performance Tuning"].map((item, index) => (
-                    <div 
+                    <motion.div 
                       key={index}
-                      className="py-2 px-4 bg-neutral-50 rounded-md text-center border border-neutral-100"
+                      className="py-2 px-4 bg-neutral-50 rounded-md text-center border border-neutral-200 hover:border-primary/30 hover:bg-neutral-100 transition-colors"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4, delay: index * 0.05 }}
+                      viewport={{ once: true }}
+                      whileHover={{ y: -3 }}
                     >
                       {item}
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </section>
@@ -524,8 +619,12 @@ const Index = () => {
         {/* Projects Section */}
         <section 
           id="projects" 
-          className="py-20 bg-neutral-50"
+          className="py-20 bg-neutral-50 relative overflow-hidden"
         >
+          {/* Background Elements */}
+          <div className="absolute top-40 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10"></div>
+          <div className="absolute bottom-20 right-20 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl -z-10"></div>
+          
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -534,7 +633,7 @@ const Index = () => {
               viewport={{ once: true, margin: "-100px" }}
             >
               <h2 className="text-3xl font-bold mb-2 text-center">My Projects</h2>
-              <div className="w-20 h-1 bg-primary mx-auto mb-12"></div>
+              <div className="w-20 h-1 bg-gradient-to-r from-primary to-purple-400 mx-auto mb-12"></div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {projects.map((project, index) => (
@@ -546,27 +645,27 @@ const Index = () => {
                     viewport={{ once: true, margin: "-100px" }}
                     className="group"
                   >
-                    <div className="overflow-hidden rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 animated-border">
                       <div className="relative h-64 overflow-hidden">
-                        <div className="absolute inset-0 bg-neutral-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex justify-center items-center">
-                          <button className="px-6 py-2 bg-primary text-white rounded-md transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/80 to-purple-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex justify-center items-center">
+                          <button className="px-6 py-2 bg-white text-primary font-medium rounded-md transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
                             View Project
                           </button>
                         </div>
                         <img
                           src={project.image}
                           alt={project.title}
-                          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
                         />
                       </div>
                       <div className="p-6 bg-white">
-                        <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
+                        <h3 className="text-lg font-semibold mb-2 gradient-text">{project.title}</h3>
                         <p className="text-neutral-600 mb-4">{project.description}</p>
                         <div className="flex flex-wrap gap-2">
                           {project.technologies.map((tech, idx) => (
                             <span 
                               key={idx}
-                              className="px-3 py-1 text-xs bg-neutral-100 rounded-full"
+                              className="px-3 py-1 text-xs bg-neutral-100 rounded-full hover:bg-primary/10 hover:text-primary transition-colors"
                             >
                               {tech}
                             </span>
@@ -584,8 +683,11 @@ const Index = () => {
         {/* Contact Section */}
         <section 
           id="contact" 
-          className="py-20 bg-white"
+          className="py-20 bg-white relative overflow-hidden"
         >
+          {/* Background Elements */}
+          <div className="absolute -left-20 bottom-0 w-96 h-96 bg-gradient-to-tr from-primary/5 to-purple-400/5 rounded-full blur-3xl -z-10"></div>
+          
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -595,27 +697,43 @@ const Index = () => {
               className="max-w-4xl mx-auto"
             >
               <h2 className="text-3xl font-bold mb-2 text-center">Get In Touch</h2>
-              <div className="w-20 h-1 bg-primary mx-auto mb-12"></div>
+              <div className="w-20 h-1 bg-gradient-to-r from-primary to-purple-400 mx-auto mb-12"></div>
               
-              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+              <div className="bg-white rounded-lg shadow-xl overflow-hidden animated-border">
                 <div className="flex flex-col md:flex-row">
-                  <div className="w-full md:w-1/3 bg-primary p-8 md:p-12 text-white">
+                  <div className="w-full md:w-1/3 bg-gradient-to-br from-primary to-purple-600 p-8 md:p-12 text-white">
                     <h3 className="text-xl font-semibold mb-6">Contact Information</h3>
                     <div className="space-y-6">
-                      <div className="flex items-center space-x-4">
-                        <MailIcon size={20} />
+                      <motion.div 
+                        className="flex items-center space-x-4"
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <MailIcon size={20} className="animate-pulse-soft" />
                         <span>vijit2k7@yahoo.in</span>
-                      </div>
-                      <div className="flex items-center space-x-4">
-                        <PhoneIcon size={20} />
+                      </motion.div>
+                      <motion.div 
+                        className="flex items-center space-x-4"
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <PhoneIcon size={20} className="animate-pulse-soft" />
                         <span>+60173400070</span>
-                      </div>
-                      <div className="flex items-center space-x-4">
-                        <MapPinIcon size={20} />
+                      </motion.div>
+                      <motion.div 
+                        className="flex items-center space-x-4"
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <MapPinIcon size={20} className="animate-pulse-soft" />
                         <span>Kuala Lumpur, Malaysia</span>
-                      </div>
-                      <div className="flex items-center space-x-4">
-                        <LinkedinIcon size={20} />
+                      </motion.div>
+                      <motion.div 
+                        className="flex items-center space-x-4"
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <LinkedinIcon size={20} className="animate-pulse-soft" />
                         <a 
                           href="https://www.linkedin.com/in/vijit-mishra-b01355188/" 
                           target="_blank"
@@ -624,12 +742,12 @@ const Index = () => {
                         >
                           LinkedIn Profile
                         </a>
-                      </div>
+                      </motion.div>
                     </div>
                   </div>
                   
                   <div className="w-full md:w-2/3 p-8 md:p-12">
-                    <h3 className="text-xl font-semibold mb-6">Send Me a Message</h3>
+                    <h3 className="text-xl font-semibold mb-6 gradient-text">Send Me a Message</h3>
                     <form className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
@@ -639,7 +757,7 @@ const Index = () => {
                           <input
                             type="text"
                             id="name"
-                            className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                            className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
                             placeholder="Your name"
                           />
                         </div>
@@ -650,7 +768,7 @@ const Index = () => {
                           <input
                             type="email"
                             id="email"
-                            className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                            className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
                             placeholder="Your email"
                           />
                         </div>
@@ -662,7 +780,7 @@ const Index = () => {
                         <input
                           type="text"
                           id="subject"
-                          className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                          className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
                           placeholder="Subject"
                         />
                       </div>
@@ -673,16 +791,18 @@ const Index = () => {
                         <textarea
                           id="message"
                           rows={4}
-                          className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                          className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
                           placeholder="Your message"
                         />
                       </div>
-                      <button
+                      <motion.button
                         type="submit"
-                        className="px-6 py-3 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+                        className="px-6 py-3 bg-gradient-to-r from-primary to-purple-600 text-white rounded-md hover:opacity-90 transition-colors"
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.98 }}
                       >
                         Send Message
-                      </button>
+                      </motion.button>
                     </form>
                   </div>
                 </div>
@@ -693,9 +813,39 @@ const Index = () => {
       </main>
       
       {/* Footer */}
-      <footer className="py-8 bg-neutral-50 border-t border-neutral-100">
+      <footer className="py-8 bg-neutral-900 text-white border-t border-neutral-800">
         <div className="container mx-auto px-6 text-center">
-          <p className="text-neutral-600">
+          <div className="flex justify-center space-x-6 mb-6">
+            <motion.a 
+              href="https://github.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-white transition-colors"
+              whileHover={{ y: -5 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <GithubIcon size={20} />
+            </motion.a>
+            <motion.a 
+              href="https://www.linkedin.com/in/vijit-mishra-b01355188/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-white transition-colors"
+              whileHover={{ y: -5 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <LinkedinIcon size={20} />
+            </motion.a>
+            <motion.a 
+              href="mailto:vijit2k7@yahoo.in" 
+              className="text-neutral-400 hover:text-white transition-colors"
+              whileHover={{ y: -5 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <MailIcon size={20} />
+            </motion.a>
+          </div>
+          <p className="text-neutral-400">
             © {new Date().getFullYear()} Vijit Mishra. All rights reserved.
           </p>
         </div>

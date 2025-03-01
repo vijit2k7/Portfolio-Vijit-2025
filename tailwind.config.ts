@@ -26,7 +26,7 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-          DEFAULT: '#0EA5E9', // A nice blue color
+          DEFAULT: '#8B5CF6', // Updated to a more vibrant purple
 					foreground: 'hsl(var(--primary-foreground))'
 				},
 				secondary: {
@@ -116,6 +116,30 @@ export default {
             opacity: "1"
           }
         },
+        'float': {
+          '0%, 100%': {
+            transform: 'translateY(0)'
+          },
+          '50%': {
+            transform: 'translateY(-10px)'
+          }
+        },
+        'pulse-soft': {
+          '0%, 100%': {
+            opacity: '1'
+          },
+          '50%': {
+            opacity: '0.8'
+          }
+        },
+        'rotate-slow': {
+          '0%': {
+            transform: 'rotate(0deg)'
+          },
+          '100%': {
+            transform: 'rotate(360deg)'
+          }
+        }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -123,7 +147,16 @@ export default {
         'fade-in': 'fade-in 0.3s ease-out',
         'fade-out': 'fade-out 0.3s ease-out',
         'scale-in': 'scale-in 0.2s ease-out',
-			}
+        'float': 'float 3s ease-in-out infinite',
+        'pulse-soft': 'pulse-soft 3s ease-in-out infinite',
+        'rotate-slow': 'rotate-slow 12s linear infinite'
+			},
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'hero-pattern': 'linear-gradient(135deg, #8B5CF6 0%, #D946EF 100%)',
+        'card-gradient': 'linear-gradient(90deg, hsla(277, 75%, 84%, 1) 0%, hsla(297, 50%, 51%, 1) 100%)',
+        'skill-gradient': 'linear-gradient(90deg, #8B5CF6 0%, #D946EF 100%)'
+      }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
