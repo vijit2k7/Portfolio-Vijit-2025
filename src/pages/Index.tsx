@@ -10,81 +10,130 @@ import {
   X,
   BookOpenIcon,
   BriefcaseIcon,
+  GlobeIcon,
+  PhoneIcon,
+  MapPinIcon,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const projects = [
   {
     id: 1,
-    title: "Finance Dashboard",
-    description: "A comprehensive financial analytics dashboard with interactive charts.",
-    technologies: ["React", "TypeScript", "Recharts"],
+    title: "UOB Infinity App",
+    description: "Digital banking platform with multinational support for Singapore, Malaysia, Indonesia, and Vietnam.",
+    technologies: ["React", "Redux", "Micro Frontends", "Module Federation"],
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
   },
   {
     id: 2,
-    title: "React Native Mobile App",
-    description: "Cross-platform mobile application with seamless user experience.",
-    technologies: ["React Native", "JavaScript", "Redux"],
+    title: "Airtel Payments Bank Blog",
+    description: "Implemented Blogs web page for APB using Angular and Prismic CMS.",
+    technologies: ["Angular", "Prismic CMS", "Web Performance"],
     image: "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?q=80&w=1974&auto=format&fit=crop",
   },
   {
     id: 3,
-    title: "E-commerce Platform",
-    description: "Full-featured online shopping platform with payment integration.",
-    technologies: ["React", "Node.js", "MongoDB"],
+    title: "HSBC Cards Landing Page",
+    description: "Reduced customer response time from 1:20 minutes to 40 seconds, implemented in US market.",
+    technologies: ["React", "Redux", "Node.js"],
     image: "https://images.unsplash.com/photo-1534088568595-a066f410bcda?q=80&w=2051&auto=format&fit=crop",
   },
   {
     id: 4,
-    title: "Machine Learning Application",
-    description: "Smart prediction system using advanced algorithms.",
-    technologies: ["Python", "TensorFlow", "Flask"],
+    title: "Fraud Detection System",
+    description: "ML model for predicting fraud in financial payment services with 94.7% accuracy.",
+    technologies: ["Python", "Machine Learning", "Data Analysis"],
     image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2072&auto=format&fit=crop",
   },
 ];
 
 const skills = [
-  { name: "React.js", level: 90 },
-  { name: "JavaScript", level: 85 },
-  { name: "TypeScript", level: 80 },
-  { name: "Python", level: 75 },
-  { name: "CSS/SCSS", level: 85 },
-  { name: "React Native", level: 70 },
+  { name: "ReactJs/NextJs/SSR", level: 95 },
+  { name: "HTML/CSS/JavaScript", level: 90 },
+  { name: "Redux/Redux Toolkit", level: 88 },
+  { name: "Node/Express/GraphQL", level: 85 },
+  { name: "TypeScript", level: 85 },
+  { name: "SQL/MongoDB", level: 80 },
+  { name: "AWS/Docker/NGINX", level: 78 },
+  { name: "Webpack/Vite", level: 75 },
+  { name: "Unit Testing (Jest)", level: 75 },
+  { name: "Micro Frontends", level: 70 },
 ];
 
 const experiences = [
   {
-    title: "Full Stack Software Engineer",
-    company: "GeekyAnts",
-    period: "Jan 2023 - Present",
-    description: "Working as a Full Stack developer focusing on React.js and React Native technologies. Building responsive web and mobile applications."
+    title: "Senior Software Engineer",
+    company: "Luxoft Malaysia",
+    location: "Kuala Lumpur",
+    period: "November 2022 - Present",
+    description: "Maintaining the 'Infinity' app, a digital banking platform for UOB Bank across Singapore, Malaysia, Indonesia, and Vietnam. Optimizing app performance using memoization, server-side rendering, and image optimization. Integrating multiple microfrontend applications using module federation for merchant onboarding."
   },
   {
-    title: "Software Developer",
-    company: "Niyo Solutions Inc.",
-    period: "Apr 2021 - Jan 2023",
-    description: "Developed banking applications using React Native. Created 10+ reusable components used by multiple teams."
+    title: "SDE-3",
+    company: "Airtel Payments Bank",
+    location: "New Delhi",
+    period: "October 2021 - October 2022",
+    description: "Optimized web performance by reducing bundle size from 5.6MB to 4.5MB. Implemented Blogs web page using Angular and Prismic CMS. Redesigned and developed recharge section with auto refresh functionality. Implemented Transaction SOA feature for downloading and sending emails."
   },
   {
-    title: "Software Developer",
-    company: "Coditation Systems Pvt. Ltd.",
-    period: "July 2020 - Apr 2021",
-    description: "Worked on React.js and React Native projects. Implemented responsive designs and maintained existing applications."
+    title: "Full Stack Engineer",
+    company: "HSBC",
+    location: "Pune",
+    period: "October 2019 - October 2021",
+    description: "Created a POC for cards landing page & statement transaction history in ReactJs, reducing response time from 1:20 minutes to 40 seconds. Developed a machine learning model for analyzing loan default data, reducing defaults by 3.5%. Gained international exposure in markets like Hong Kong, UK, Taiwan, Malaysia, and US."
   },
   {
-    title: "Software Developer Intern",
-    company: "NBCC India Ltd.",
-    period: "Jan 2020 - Apr 2020",
-    description: "Gained hands-on experience in web development and contributed to internal projects."
+    title: "Instructor (MERN Stack)",
+    company: "Newton School",
+    location: "India",
+    period: "July 2021 - December 2021",
+    description: "Mentored over 300+ students on web development. Taught technologies like JavaScript, HTML, CSS, ReactJS, NodeJS, SQL, and NoSQL databases."
+  },
+  {
+    title: "Software Engineer",
+    company: "HSBC",
+    location: "Pune",
+    period: "June 2016 - October 2019",
+    description: "Worked on the Octopus project for Hong Kong Team, automating the issuance of AAVS cards. Created end-to-end projects using Angular 1.5 & Spring for credit cards, implemented in Malaysia, Hong Kong, and Taiwan."
   }
 ];
 
 const education = [
   {
-    degree: "B.Tech in Computer Science",
-    institution: "Dr. A.P.J. Abdul Kalam Technical University",
-    period: "2016 - 2020",
+    degree: "Masters in Computer Science",
+    institution: "IIIT Bangalore",
+    location: "India",
+    period: "July 2020 - July 2022",
+    details: "Graduated with 3.87 GPA"
+  },
+  {
+    degree: "Bachelor of Technology - Electronics and Communications",
+    institution: "Netaji Subhas Institute of Technology",
+    location: "New Delhi",
+    period: "January 2012 - July 2016",
+    details: "Graduated with 75% aggregate"
+  },
+  {
+    degree: "High School",
+    institution: "Delhi Public School, Vasant Kunj",
+    location: "New Delhi",
+    period: "April 2010 - April 2012",
+    details: "Graduated with 96% in boards"
+  }
+];
+
+const certifications = [
+  {
+    name: "AWS Certified Solutions Architect",
+    issuer: "Amazon Web Services (AWS)",
+    period: "September 2019 - September 2022",
+    link: "www.certmetrics.com"
+  },
+  {
+    name: "DS C20 | 1st June 2020 Cohort | Course 1 - LOA",
+    issuer: "upGrad",
+    period: "May 2020 - June 2022",
+    link: "www.credential.net"
   }
 ];
 
@@ -230,10 +279,10 @@ const Index = () => {
               <span className="text-primary">Vijit Mishra</span>
             </h1>
             <h2 className="text-xl md:text-2xl text-neutral-600 mb-8">
-              Full Stack Software Engineer
+              Senior Software Engineer
             </h2>
             <p className="text-neutral-600 mb-10 max-w-2xl mx-auto">
-              I specialize in building modern web and mobile applications using React.js and React Native. I'm passionate about creating exceptional user experiences and solving complex problems.
+              FullStack Engineer with nearly 8+ years of experience in Software Design & Development. I specialize in building modern web applications and have international exposure across multiple markets including Singapore, Malaysia, Indonesia, and Vietnam.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <button
@@ -288,8 +337,8 @@ const Index = () => {
                   <div className="aspect-square overflow-hidden rounded-xl shadow-lg relative">
                     <div className="absolute inset-0 bg-primary/10"></div>
                     <img 
-                      src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=2070&auto=format&fit=crop" 
-                      alt="Profile" 
+                      src="public/lovable-uploads/ffb6ce1b-cdf8-469f-b425-4c0d3785ccf7.png" 
+                      alt="Vijit Mishra" 
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -298,10 +347,10 @@ const Index = () => {
                 <div className="w-full md:w-2/3">
                   <h3 className="text-xl font-semibold mb-4">Who I am</h3>
                   <p className="text-neutral-600 mb-4">
-                    I'm a Full Stack Software Engineer based in Indore, India, with a passion for building modern web and mobile applications. I specialize in JavaScript, React.js, React Native, and related technologies.
+                    I'm a Senior Software Engineer based in Kuala Lumpur, Malaysia, with a passion for building modern web applications. I specialize in ReactJS, NextJS, Redux, Node.js, and related technologies.
                   </p>
                   <p className="text-neutral-600 mb-6">
-                    With over 3 years of experience in software development, I've worked on a variety of projects ranging from banking applications to e-commerce platforms. I focus on writing clean, maintainable code and creating intuitive user experiences.
+                    With over 8 years of experience in software development, I've worked on a variety of projects ranging from digital banking applications to e-commerce platforms. I focus on writing clean, maintainable code and creating intuitive user experiences.
                   </p>
                   
                   <div className="grid grid-cols-2 gap-4">
@@ -311,34 +360,64 @@ const Index = () => {
                     </div>
                     <div>
                       <h4 className="font-medium">Email:</h4>
-                      <p className="text-neutral-600">mishra.vijit1@gmail.com</p>
+                      <p className="text-neutral-600">vijit2k7@yahoo.in</p>
                     </div>
                     <div>
                       <h4 className="font-medium">Location:</h4>
-                      <p className="text-neutral-600">Indore, India</p>
+                      <p className="text-neutral-600">Kuala Lumpur, Malaysia</p>
                     </div>
                     <div>
-                      <h4 className="font-medium">Availability:</h4>
-                      <p className="text-neutral-600">Full-time</p>
+                      <h4 className="font-medium">Phone:</h4>
+                      <p className="text-neutral-600">+60173400070</p>
                     </div>
                   </div>
                 </div>
               </div>
               
-              {/* Education Section */}
-              <div className="mt-16">
-                <h3 className="text-xl font-semibold mb-6 flex items-center">
-                  <BookOpenIcon size={20} className="mr-2 text-primary" />
-                  Education
-                </h3>
-                <div className="space-y-6">
-                  {education.map((edu, index) => (
-                    <div key={index} className="bg-neutral-50 p-6 rounded-lg shadow-sm">
-                      <h4 className="font-semibold">{edu.degree}</h4>
-                      <p className="text-neutral-600">{edu.institution}</p>
-                      <p className="text-sm text-neutral-500">{edu.period}</p>
-                    </div>
-                  ))}
+              {/* Education & Certifications Section */}
+              <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Education */}
+                <div>
+                  <h3 className="text-xl font-semibold mb-6 flex items-center">
+                    <BookOpenIcon size={20} className="mr-2 text-primary" />
+                    Education
+                  </h3>
+                  <div className="space-y-6">
+                    {education.map((edu, index) => (
+                      <div key={index} className="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                        <h4 className="font-semibold">{edu.degree}</h4>
+                        <p className="text-neutral-600">{edu.institution}, {edu.location}</p>
+                        <p className="text-sm text-neutral-500">{edu.period}</p>
+                        <p className="text-sm text-neutral-600 mt-2">{edu.details}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Certifications */}
+                <div>
+                  <h3 className="text-xl font-semibold mb-6 flex items-center">
+                    <BookOpenIcon size={20} className="mr-2 text-primary" />
+                    Certifications
+                  </h3>
+                  <div className="space-y-6">
+                    {certifications.map((cert, index) => (
+                      <div key={index} className="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                        <h4 className="font-semibold">{cert.name}</h4>
+                        <p className="text-neutral-600">{cert.issuer}</p>
+                        <p className="text-sm text-neutral-500">{cert.period}</p>
+                        <a 
+                          href={`https://${cert.link}`} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-primary text-sm inline-flex items-center mt-2 hover:underline"
+                        >
+                          <GlobeIcon size={14} className="mr-1" />
+                          View Certificate
+                        </a>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -375,8 +454,11 @@ const Index = () => {
                       <h3 className="text-lg font-semibold">{exp.title}</h3>
                       <span className="text-sm text-neutral-500">{exp.period}</span>
                     </div>
-                    <p className="text-primary font-medium mb-3 flex items-center">
+                    <p className="text-primary font-medium mb-2 flex items-center">
                       <BriefcaseIcon size={16} className="mr-1" /> {exp.company}
+                    </p>
+                    <p className="text-neutral-500 text-sm mb-3 flex items-center">
+                      <MapPinIcon size={14} className="mr-1" /> {exp.location}
                     </p>
                     <p className="text-neutral-600">{exp.description}</p>
                   </motion.div>
@@ -425,7 +507,7 @@ const Index = () => {
               <div className="mt-16 bg-white p-8 rounded-lg shadow-sm">
                 <h3 className="text-xl font-semibold mb-6 text-center">Other Expertise</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                  {["Git", "Redux", "RESTful APIs", "MongoDB", "Firebase", "UI/UX", "Tailwind CSS", "Express.js"].map((item, index) => (
+                  {["Git/GitHub", "DevOps (CICD)", "Apache Kafka/Camel", "Machine Learning", "Akamai (CDN)", "Micro Frontends", "Image Optimization", "Performance Tuning"].map((item, index) => (
                     <div 
                       key={index}
                       className="py-2 px-4 bg-neutral-50 rounded-md text-center border border-neutral-100"
@@ -522,15 +604,26 @@ const Index = () => {
                     <div className="space-y-6">
                       <div className="flex items-center space-x-4">
                         <MailIcon size={20} />
-                        <span>mishra.vijit1@gmail.com</span>
+                        <span>vijit2k7@yahoo.in</span>
                       </div>
                       <div className="flex items-center space-x-4">
-                        <GithubIcon size={20} />
-                        <span>github.com/vijit</span>
+                        <PhoneIcon size={20} />
+                        <span>+60173400070</span>
+                      </div>
+                      <div className="flex items-center space-x-4">
+                        <MapPinIcon size={20} />
+                        <span>Kuala Lumpur, Malaysia</span>
                       </div>
                       <div className="flex items-center space-x-4">
                         <LinkedinIcon size={20} />
-                        <span>linkedin.com/in/vijit-mishra-b01355188</span>
+                        <a 
+                          href="https://www.linkedin.com/in/vijit-mishra-b01355188/" 
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          LinkedIn Profile
+                        </a>
                       </div>
                     </div>
                   </div>
