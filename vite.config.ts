@@ -19,7 +19,12 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "react/jsx-runtime": path.resolve("node_modules/react/jsx-runtime.js"),
+      "react/jsx-dev-runtime": path.resolve("node_modules/react/jsx-dev-runtime.js")
     },
+  },
+  optimizeDeps: {
+    include: ['react/jsx-runtime']
   },
   build: {
     sourcemap: true,
@@ -31,9 +36,14 @@ export default defineConfig(({ mode }) => ({
     },
     rollupOptions: {
       output: {
-        // Force consistent exports to avoid JSX transformation issues
-        format: 'esm'
-      }
+        format: 'esm',
+        manualChunks: undefined
+      },
+      external: []
     }
+  },
+  define: {
+    'global.React': 'React',
+    '__DEV__': JSON.stringify(mode === 'development')
   }
 }));
