@@ -34,6 +34,9 @@ export default defineConfig(({ mode }) => ({
         drop_console: false,
       }
     },
+    commonjsOptions: {
+      transformMixedEsModules: true
+    },
     rollupOptions: {
       output: {
         format: 'esm',
@@ -43,7 +46,8 @@ export default defineConfig(({ mode }) => ({
     }
   },
   define: {
-    'global.React': 'React',
+    'window.React': 'window.React || {}',
+    'global.React': 'window.React',
     '__DEV__': JSON.stringify(mode === 'development')
   }
 }));
