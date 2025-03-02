@@ -46,8 +46,6 @@ export default defineConfig(({ mode }) => ({
     }
   },
   define: {
-    'window.React': 'window.React || {}',
-    'global.React': 'window.React',
     '__DEV__': JSON.stringify(mode === 'development')
   }
 }));
