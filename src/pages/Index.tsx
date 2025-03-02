@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -20,36 +19,54 @@ import {
   Layout,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import emailjs from '@emailjs/browser';
 
-const projects = [
+const enterpriseProjects = [
   {
     id: 1,
     title: "UOB Infinity App",
     description: "Digital banking platform with multinational support for Singapore, Malaysia, Indonesia, and Vietnam.",
     technologies: ["React", "Redux", "Micro Frontends", "Module Federation"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/uob.png",
+    link: "https://www.uob.com.sg/business/digital/infinity/index.page"
   },
   {
     id: 2,
     title: "Airtel Payments Bank Blog",
     description: "Implemented Blogs web page for APB using Angular and Prismic CMS.",
     technologies: ["Angular", "Prismic CMS", "Web Performance"],
-    image: "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?q=80&w=1974&auto=format&fit=crop",
+    image: "/images/airtelblog.png",
+    link: "https://www.airtel.in/blog/"
   },
   {
     id: 3,
     title: "HSBC Cards Landing Page",
     description: "Reduced customer response time from 1:20 minutes to 40 seconds, implemented in US market.",
     technologies: ["React", "Redux", "Node.js"],
-    image: "https://images.unsplash.com/photo-1534088568595-a066f410bcda?q=80&w=2051&auto=format&fit=crop",
+    image: "/images/HSBC.png",
+    link: "https://www.hsbc.com.my/advance/"
   },
   {
     id: 4,
-    title: "Fraud Detection System",
-    description: "ML model for predicting fraud in financial payment services with 94.7% accuracy.",
-    technologies: ["Python", "Machine Learning", "Data Analysis"],
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2072&auto=format&fit=crop",
+    title: "Klutchh Esports",
+    description: "Led a team of 10 professionals as CTO to develop an innovative esports platform attracting 40,000+ users.",
+    technologies: ["React Native", "Node.js", "AWS", "MongoDB"],
+    image: "/images/klutchh.png",
+    link: "https://landingpagev2.onrender.com/"
   },
+];
+
+const latestProjects = [
+  {
+    id: 5,
+    title: "TwitterX AutoDM",
+    description: "Automated direct messaging system for Twitter/X platform that helps businesses engage with followers and potential customers.",
+    technologies: ["React", "Node.js", "Twitter API", "Tailwind CSS"],
+    image: "/images/twitter.png",
+    link: "https://xdm-frontend-final-pqxr.onrender.com/"
+  }
 ];
 
 const skills = [
@@ -142,11 +159,172 @@ const certifications = [
   }
 ];
 
+const ProjectCard = ({ project, index }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      className="group h-full cursor-pointer"
+      onClick={() => {
+        if (project.link) {
+          window.open(project.link, '_blank');
+        }
+      }}
+    >
+      <div className="overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 animated-border h-full flex flex-col">
+        <div className="relative h-64 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 to-purple-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex justify-center items-center">
+            {project.link ? (
+              <a 
+                href={project.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-6 py-2 bg-white text-primary font-medium rounded-md transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all cursor-pointer hover:bg-neutral-50"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(project.link, '_blank', 'noopener,noreferrer');
+                }}
+              >
+                View Project
+              </a>
+            ) : (
+              <button className="px-6 py-2 bg-white text-primary font-medium rounded-md transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                Project Details
+              </button>
+            )}
+          </div>
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
+          />
+        </div>
+        <div className="p-6 bg-white flex-1 flex flex-col">
+          <h3 className="text-lg font-semibold mb-2 gradient-text">{project.title}</h3>
+          <p className="text-neutral-600 mb-4 flex-grow">{project.description}</p>
+          <div className="flex flex-wrap gap-2 mb-4 min-h-[40px]">
+            {project.technologies.map((tech, idx) => (
+              <span 
+                key={idx}
+                className="px-3 py-1 text-xs bg-neutral-100 rounded-full hover:bg-primary/10 hover:text-primary transition-colors"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+          {project.link && (
+            <div className="mt-4 w-full">
+              <a 
+                href={project.link}
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center w-full py-2 px-4 bg-primary/10 text-primary rounded-md hover:bg-primary/20 transition-colors font-medium"
+                onClick={(e) => {
+                  // Prevent default behavior first
+                  e.preventDefault();
+                  // Stop event propagation
+                  e.stopPropagation();
+                  // Open in new tab with fallback
+                  try {
+                    window.open(project.link, '_blank');
+                  } catch (err) {
+                    // Fallback - direct assignment as a last resort
+                    window.location.href = project.link;
+                  }
+                }}
+              >
+                <GlobeIcon size={16} className="mr-2" />
+                Visit Website
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isLoaded, setIsLoaded] = useState(false);
   const sections = useRef<HTMLElement[]>([]);
+  
+  // Add form state for the contact form
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Form input handler
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [id]: value
+    }));
+  };
+  
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Basic validation
+    if (!formData.name || !formData.email || !formData.message) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+    
+    setIsSubmitting(true);
+    
+    try {
+      // Show sending toast
+      toast.info("Sending your message...");
+      
+      // Create form data to submit
+      const formElement = e.target;
+      
+      // Submit the form using the browser's fetch API
+      const response = await fetch("https://formsubmit.co/vijit2k7@yahoo.in", {
+        method: "POST",
+        body: new FormData(formElement),
+        headers: {
+          'Accept': 'application/json'
+        },
+      });
+      
+      if (response.ok) {
+        toast.success("Message sent successfully! I'll get back to you soon.");
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast.error("Failed to send message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     // Animation to show content has loaded
@@ -197,7 +375,7 @@ const Index = () => {
       <header className="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-neutral-100">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <Link to="/" className="text-2xl font-semibold tracking-tighter">
-            <span className="text-neutral-900">Vijit</span>
+            <span className="text-neutral-900">Vijit Mishra</span>
             <span className="gradient-text font-bold">.</span>
           </Link>
           
@@ -267,6 +445,49 @@ const Index = () => {
         )}
       </AnimatePresence>
       
+      {/* Just after the <header> section, before the <main> tag */}
+      {/* Add a top contact info bar */}
+      <div className="bg-neutral-900 text-white py-2 hidden md:block">
+        <div className="container mx-auto px-6">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center space-x-6 text-sm">
+              <a 
+                href="mailto:vijit2k7@yahoo.in" 
+                className="flex items-center hover:text-primary transition-colors"
+              >
+                <MailIcon size={14} className="mr-1.5" />
+                <span>vijit2k7@yahoo.in</span>
+              </a>
+              <a 
+                href="tel:+60173400070" 
+                className="flex items-center hover:text-primary transition-colors"
+              >
+                <PhoneIcon size={14} className="mr-1.5" />
+                <span>+60173400070</span>
+              </a>
+            </div>
+            <div className="flex items-center space-x-4">
+              <a 
+                href="https://www.linkedin.com/in/vijit-mishra-b01355188/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-primary transition-colors"
+              >
+                <LinkedinIcon size={16} />
+              </a>
+              <a 
+                href="https://github.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-primary transition-colors"
+              >
+                <GithubIcon size={16} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <main className="pt-24">
         {/* Hero Section */}
         <section 
@@ -330,6 +551,14 @@ const Index = () => {
               >
                 Contact Me
               </button>
+              <a
+                href="/Vijit_Mishra_Resume_Updated.pdf" 
+                download
+                className="px-8 py-3 border border-neutral-300 rounded-md hover:bg-neutral-100 transition-colors flex items-center justify-center"
+              >
+                <ArrowDownIcon size={16} className="mr-2" />
+                Download Resume
+              </a>
               <button
                 onClick={() => scrollToSection("projects")}
                 className="px-8 py-3 border border-neutral-300 rounded-md hover:bg-neutral-100 transition-colors"
@@ -380,7 +609,7 @@ const Index = () => {
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-500/20"></div>
                     <img 
-                      src="public/lovable-uploads/ffb6ce1b-cdf8-469f-b425-4c0d3785ccf7.png" 
+                      src="/images/VijitProfile.jpeg" 
                       alt="Vijit Mishra" 
                       className="w-full h-full object-cover"
                     />
@@ -635,46 +864,24 @@ const Index = () => {
               <h2 className="text-3xl font-bold mb-2 text-center">My Projects</h2>
               <div className="w-20 h-1 bg-gradient-to-r from-primary to-purple-400 mx-auto mb-12"></div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {projects.map((project, index) => (
-                  <motion.div
-                    key={project.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="group"
-                  >
-                    <div className="overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 animated-border">
-                      <div className="relative h-64 overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/80 to-purple-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex justify-center items-center">
-                          <button className="px-6 py-2 bg-white text-primary font-medium rounded-md transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
-                            View Project
-                          </button>
-                        </div>
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
-                        />
-                      </div>
-                      <div className="p-6 bg-white">
-                        <h3 className="text-lg font-semibold mb-2 gradient-text">{project.title}</h3>
-                        <p className="text-neutral-600 mb-4">{project.description}</p>
-                        <div className="flex flex-wrap gap-2">
-                          {project.technologies.map((tech, idx) => (
-                            <span 
-                              key={idx}
-                              className="px-3 py-1 text-xs bg-neutral-100 rounded-full hover:bg-primary/10 hover:text-primary transition-colors"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+              {/* Enterprise Projects */}
+              <div className="mb-16">
+                <h3 className="text-2xl font-semibold mb-8 text-center gradient-text">Enterprise Projects</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {enterpriseProjects.map((project, index) => (
+                    <ProjectCard key={project.id} project={project} index={index} />
+                  ))}
+                </div>
+              </div>
+              
+              {/* Latest Projects */}
+              <div>
+                <h3 className="text-2xl font-semibold mb-8 text-center gradient-text">My Latest Projects</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {latestProjects.map((project, index) => (
+                    <ProjectCard key={project.id} project={project} index={index} />
+                  ))}
+                </div>
               </div>
             </motion.div>
           </div>
@@ -738,7 +945,8 @@ const Index = () => {
                           href="https://www.linkedin.com/in/vijit-mishra-b01355188/" 
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="hover:underline"
+                          className="hover:underline cursor-pointer"
+                          onClick={() => window.open("https://www.linkedin.com/in/vijit-mishra-b01355188/", "_blank")}
                         >
                           LinkedIn Profile
                         </a>
@@ -748,28 +956,42 @@ const Index = () => {
                   
                   <div className="w-full md:w-2/3 p-8 md:p-12">
                     <h3 className="text-xl font-semibold mb-6 gradient-text">Send Me a Message</h3>
-                    <form className="space-y-6">
+                    <form className="space-y-6" onSubmit={handleSubmit} action="https://formsubmit.co/vijit2k7@yahoo.in" method="POST">
+                      {/* Add these hidden fields for FormSubmit configuration */}
+                      <input type="hidden" name="_subject" value="New portfolio contact message" />
+                      <input type="hidden" name="_template" value="table" />
+                      <input type="hidden" name="_captcha" value="false" />
+                      <input type="hidden" name="_next" value={window.location.href} />
+                      
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-1">
-                            Name
+                            Name <span className="text-red-500">*</span>
                           </label>
                           <input
                             type="text"
                             id="name"
+                            name="name"
                             className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
                             placeholder="Your name"
+                            value={formData.name}
+                            onChange={handleInputChange}
+                            required
                           />
                         </div>
                         <div>
                           <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-1">
-                            Email
+                            Email <span className="text-red-500">*</span>
                           </label>
                           <input
                             type="email"
                             id="email"
+                            name="email"
                             className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
                             placeholder="Your email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            required
                           />
                         </div>
                       </div>
@@ -780,28 +1002,36 @@ const Index = () => {
                         <input
                           type="text"
                           id="subject"
+                          name="subject"
                           className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
                           placeholder="Subject"
+                          value={formData.subject}
+                          onChange={handleInputChange}
                         />
                       </div>
                       <div>
                         <label htmlFor="message" className="block text-sm font-medium text-neutral-700 mb-1">
-                          Message
+                          Message <span className="text-red-500">*</span>
                         </label>
                         <textarea
                           id="message"
+                          name="message"
                           rows={4}
                           className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
                           placeholder="Your message"
+                          value={formData.message}
+                          onChange={handleInputChange}
+                          required
                         />
                       </div>
                       <motion.button
                         type="submit"
-                        className="px-6 py-3 bg-gradient-to-r from-primary to-purple-600 text-white rounded-md hover:opacity-90 transition-colors"
+                        className="px-6 py-3 bg-gradient-to-r from-primary to-purple-600 text-white rounded-md hover:opacity-90 transition-colors disabled:opacity-70"
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.98 }}
+                        disabled={isSubmitting}
                       >
-                        Send Message
+                        {isSubmitting ? 'Sending...' : 'Send Message'}
                       </motion.button>
                     </form>
                   </div>
@@ -850,6 +1080,20 @@ const Index = () => {
           </p>
         </div>
       </footer>
+      
+      {/* Toast Container */}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
