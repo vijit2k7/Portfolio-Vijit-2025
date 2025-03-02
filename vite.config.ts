@@ -23,6 +23,17 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     sourcemap: true,
-    minify: 'esbuild',
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: false,
+      }
+    },
+    rollupOptions: {
+      output: {
+        // Force consistent exports to avoid JSX transformation issues
+        format: 'esm'
+      }
+    }
   }
 }));
