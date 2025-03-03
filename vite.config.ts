@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
@@ -11,7 +11,11 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react({
-      jsxImportSource: 'react'
+      babel: {
+        plugins: [
+          ["@babel/plugin-transform-react-jsx", { runtime: "automatic" }]
+        ]
+      }
     }),
     mode === 'development' &&
     componentTagger(),
@@ -19,30 +23,21 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "react/jsx-runtime": path.resolve("node_modules/react/jsx-runtime.js"),
-      "react/jsx-dev-runtime": path.resolve("node_modules/react/jsx-dev-runtime.js")
     },
-  },
-  optimizeDeps: {
-    include: ['react/jsx-runtime']
   },
   build: {
     sourcemap: true,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: false,
-      }
-    },
-    commonjsOptions: {
-      transformMixedEsModules: true
-    },
+    minify: 'esbuild',
     rollupOptions: {
-      output: {
-        format: 'esm',
-        manualChunks: undefined
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
       },
-      external: []
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          'react-runtime': ['react/jsx-runtime']
+        }
+      }
     }
   },
   define: {
