@@ -66,7 +66,23 @@ const latestProjects = [
     technologies: ["React", "Node.js", "Twitter API", "Tailwind CSS"],
     image: "/images/twitter.png",
     link: "https://xdm-frontend-final-pqxr.onrender.com/"
-  }
+  },
+  {
+    id: 7,
+    title: "AIBlogsBot",
+    description: "AI-powered content generation platform that helps businesses create high-quality blog posts, articles, and marketing copy quickly and efficiently. The tool uses advanced language models to generate SEO-optimized content tailored to specific industries and topics.",
+    technologies: ["React", "Node.js", "OpenAI API", "Tailwind CSS", "AWS"],
+    image: "/images/aiblogspot.png",
+    link: "https://app.aiblogsbot.com"
+  },
+  {
+    id: 6,
+    title: "BacklinkBot.ai",
+    description: "AI-powered platform that automates startup directory submissions to supercharge SEO and boost online visibility. Helps SaaS founders gain valuable backlinks by submitting to 100+ high-quality directories using intelligent matching algorithms.",
+    technologies: ["Node.js", "Puppeteer", "AI/ML", "React", "Render.com"],
+    image: "/images/backlinkbot.png",
+    link: "https://backlinkbot.ai"
+  },
 ];
 
 const skills = [
@@ -160,6 +176,8 @@ const certifications = [
 ];
 
 const ProjectCard = ({ project, index }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -167,78 +185,133 @@ const ProjectCard = ({ project, index }) => {
       transition={{ duration: 0.6, delay: index * 0.1 }}
       viewport={{ once: true, margin: "-100px" }}
       className="group h-full cursor-pointer"
+      whileHover={{ y: -8 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
       onClick={() => {
         if (project.link) {
           window.open(project.link, '_blank');
         }
       }}
     >
-      <div className="overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 animated-border h-full flex flex-col">
-        <div className="relative h-64 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 to-purple-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex justify-center items-center">
+      <div className="overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 h-full flex flex-col bg-white border border-neutral-200 hover:border-primary/30">
+        <div className="relative h-48 overflow-hidden">
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30 z-10"></div>
+          
+          {/* Hover overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 to-purple-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex justify-center items-center z-20">
             {project.link ? (
-              <a 
+              <motion.a 
                 href={project.link} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="px-6 py-2 bg-white text-primary font-medium rounded-md transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all cursor-pointer hover:bg-neutral-50"
+                className="px-6 py-2 bg-white text-primary font-medium rounded-md transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all cursor-pointer hover:bg-neutral-50 hover:scale-105"
+                initial={{ y: 10, opacity: 0 }}
+                animate={isHovered ? { y: 0, opacity: 1 } : { y: 10, opacity: 0 }}
+                transition={{ duration: 0.3 }}
                 onClick={(e) => {
                   e.stopPropagation();
                   window.open(project.link, '_blank', 'noopener,noreferrer');
                 }}
               >
                 View Project
-              </a>
+              </motion.a>
             ) : (
-              <button className="px-6 py-2 bg-white text-primary font-medium rounded-md transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+              <motion.button 
+                className="px-6 py-2 bg-white text-primary font-medium rounded-md transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all hover:scale-105"
+                initial={{ y: 10, opacity: 0 }}
+                animate={isHovered ? { y: 0, opacity: 1 } : { y: 10, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
                 Project Details
-              </button>
+              </motion.button>
             )}
           </div>
-          <img
+          
+          {/* Project image */}
+          <motion.img
             src={project.image}
             alt={project.title}
-            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
+            className="w-full h-full object-cover"
+            initial={{ scale: 1 }}
+            animate={isHovered ? { scale: 1.15, rotate: -2 } : { scale: 1, rotate: 0 }}
+            transition={{ duration: 0.5 }}
           />
+          
+          {/* Project badge */}
+          <motion.div 
+            className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full p-1.5 z-20 shadow-md"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isHovered ? { opacity: 1, scale: 1 } : { opacity: 0.7, scale: 1 }}
+            transition={{ duration: 0.2 }}
+          >
+            <GlobeIcon size={16} className="text-primary" />
+          </motion.div>
+          
+          {/* Project title on image - visible on mobile */}
+          <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent z-10 md:hidden">
+            <h3 className="text-white font-medium truncate">{project.title}</h3>
+          </div>
         </div>
-        <div className="p-6 bg-white flex-1 flex flex-col">
-          <h3 className="text-lg font-semibold mb-2 gradient-text">{project.title}</h3>
-          <p className="text-neutral-600 mb-4 flex-grow">{project.description}</p>
-          <div className="flex flex-wrap gap-2 mb-4 min-h-[40px]">
-            {project.technologies.map((tech, idx) => (
-              <span 
+        
+        <div className="p-5 flex-1 flex flex-col relative">
+          {/* Small indicator dot for enterprise/latest */}
+          <div className="absolute top-0 right-0 w-3 h-3 rounded-full bg-gradient-to-br from-primary to-purple-500 transform translate-x-1/2 -translate-y-1/2"></div>
+          
+          {/* Project title */}
+          <h3 className="text-lg font-semibold mb-2 gradient-text hidden md:block">{project.title}</h3>
+          
+          {/* Project description */}
+          <p className="text-neutral-600 mb-3 flex-grow text-sm line-clamp-2">{project.description}</p>
+          
+          {/* Technology tags */}
+          <div className="flex flex-wrap gap-1.5 mb-3 min-h-[32px]">
+            {project.technologies.slice(0, 3).map((tech, idx) => (
+              <motion.span 
                 key={idx}
-                className="px-3 py-1 text-xs bg-neutral-100 rounded-full hover:bg-primary/10 hover:text-primary transition-colors"
+                className="px-2 py-0.5 text-xs bg-neutral-100 rounded-full hover:bg-primary/10 hover:text-primary transition-colors"
+                whileHover={{ y: -2, backgroundColor: "rgba(139, 92, 246, 0.1)", color: "#8b5cf6" }}
               >
                 {tech}
-              </span>
+              </motion.span>
             ))}
+            {project.technologies.length > 3 && (
+              <motion.span 
+                className="px-2 py-0.5 text-xs bg-neutral-100 rounded-full hover:bg-primary/10 hover:text-primary transition-colors"
+                whileHover={{ y: -2, backgroundColor: "rgba(139, 92, 246, 0.1)", color: "#8b5cf6" }}
+              >
+                +{project.technologies.length - 3}
+              </motion.span>
+            )}
           </div>
+          
+          {/* Visit Website button */}
           {project.link && (
-            <div className="mt-4 w-full">
+            <motion.div 
+              className="w-full"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+            >
               <a 
                 href={project.link}
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-full py-2 px-4 bg-primary/10 text-primary rounded-md hover:bg-primary/20 transition-colors font-medium"
+                className="inline-flex items-center justify-center w-full py-1.5 px-3 bg-primary/10 text-primary rounded-md hover:bg-primary/20 transition-colors font-medium text-sm"
                 onClick={(e) => {
-                  // Prevent default behavior first
                   e.preventDefault();
-                  // Stop event propagation
                   e.stopPropagation();
-                  // Open in new tab with fallback
                   try {
                     window.open(project.link, '_blank');
                   } catch (err) {
-                    // Fallback - direct assignment as a last resort
                     window.location.href = project.link;
                   }
                 }}
               >
-                <GlobeIcon size={16} className="mr-2" />
+                <GlobeIcon size={14} className="mr-1.5" />
                 Visit Website
               </a>
-            </div>
+            </motion.div>
           )}
         </div>
       </div>
@@ -476,7 +549,7 @@ const Index = () => {
                 <LinkedinIcon size={16} />
               </a>
               <a 
-                href="https://github.com" 
+                href="https://github.com/vijit2k7" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="hover:text-primary transition-colors"
@@ -850,9 +923,21 @@ const Index = () => {
           id="projects" 
           className="py-20 bg-neutral-50 relative overflow-hidden"
         >
-          {/* Background Elements */}
+          {/* Enhanced background elements */}
           <div className="absolute top-40 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10"></div>
           <div className="absolute bottom-20 right-20 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl -z-10"></div>
+          <motion.div 
+            className="absolute top-1/4 right-1/4 w-48 h-48 rounded-full bg-primary/5 blur-3xl -z-10"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
           
           <div className="container mx-auto px-6">
             <motion.div
@@ -861,13 +946,28 @@ const Index = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true, margin: "-100px" }}
             >
+              {/* Section title with animated underline */}
               <h2 className="text-3xl font-bold mb-2 text-center">My Projects</h2>
-              <div className="w-20 h-1 bg-gradient-to-r from-primary to-purple-400 mx-auto mb-12"></div>
+              <motion.div 
+                className="w-20 h-1 bg-gradient-to-r from-primary to-purple-400 mx-auto mb-4"
+                initial={{ width: 0 }}
+                whileInView={{ width: 80 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              />
+              <p className="text-neutral-600 text-center max-w-2xl mx-auto mb-12">
+                Here are some of the projects I've worked on throughout my career, from enterprise applications to personal endeavors.
+              </p>
               
               {/* Enterprise Projects */}
               <div className="mb-16">
-                <h3 className="text-2xl font-semibold mb-8 text-center gradient-text">Enterprise Projects</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="flex items-center justify-center mb-8 space-x-4">
+                  <div className="h-px bg-neutral-200 w-12"></div>
+                  <h3 className="text-2xl font-semibold text-center gradient-text">Enterprise Projects</h3>
+                  <div className="h-px bg-neutral-200 w-12"></div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
                   {enterpriseProjects.map((project, index) => (
                     <ProjectCard key={project.id} project={project} index={index} />
                   ))}
@@ -876,12 +976,32 @@ const Index = () => {
               
               {/* Latest Projects */}
               <div>
-                <h3 className="text-2xl font-semibold mb-8 text-center gradient-text">My Latest Projects</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="flex items-center justify-center mb-8 space-x-4">
+                  <div className="h-px bg-neutral-200 w-12"></div>
+                  <h3 className="text-2xl font-semibold text-center gradient-text">My Latest Projects</h3>
+                  <div className="h-px bg-neutral-200 w-12"></div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
                   {latestProjects.map((project, index) => (
                     <ProjectCard key={project.id} project={project} index={index} />
                   ))}
                 </div>
+              </div>
+              
+              {/* View more projects link */}
+              <div className="mt-12 text-center">
+                <motion.a
+                  href="https://github.com" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-primary hover:text-purple-700 font-medium transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span>View more on GitHub</span>
+                  <GithubIcon size={18} />
+                </motion.a>
               </div>
             </motion.div>
           </div>
