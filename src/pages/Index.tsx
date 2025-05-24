@@ -21,7 +21,6 @@ import {
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import emailjs from '@emailjs/browser';
 
 const enterpriseProjects = [
   {
@@ -65,7 +64,15 @@ const latestProjects = [
     description: "Automated direct messaging system for Twitter/X platform that helps businesses engage with followers and potential customers.",
     technologies: ["React", "Node.js", "Twitter API", "Tailwind CSS"],
     image: "/images/twitter.png",
-    link: "https://xdm-frontend-final-pqxr.onrender.com/"
+    link: "https://xautodm.com/"
+  },
+  {
+    id: 8,
+    title: "TokGency",
+    description: "AI-powered TikTok growth platform that helps consumer apps and D2C brands achieve viral growth in the US market. The platform leverages US-based creators, automated content generation, and data-driven optimization to deliver 100k+ organic installs in under 90 days.",
+    technologies: ["React", "Node.js", "AI/ML", "AWS", "TikTok API"],
+    image: "/images/shortsgency.png",
+    link: "https://tokgency.com"
   },
   {
     id: 7,
@@ -233,7 +240,7 @@ const ProjectCard = ({ project, index }) => {
           <motion.img
             src={project.image}
             alt={project.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain bg-white"
             initial={{ scale: 1 }}
             animate={isHovered ? { scale: 1.15, rotate: -2 } : { scale: 1, rotate: 0 }}
             transition={{ duration: 0.5 }}
@@ -598,16 +605,52 @@ const Index = () => {
               </span>
             </motion.div>
             
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-              <span className="block mb-2">Hello, I'm</span>
-              <span className="gradient-text">Vijit Mishra</span>
-            </h1>
+            <motion.h1 
+              className="text-4xl md:text-6xl font-bold leading-tight mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <motion.span 
+                className="block mb-2"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                style={{
+                  transformStyle: "preserve-3d",
+                  transform: "perspective(1000px)",
+                }}
+              >
+                Hello, I'm
+              </motion.span>
+              <motion.span 
+                className="gradient-text inline-block"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                style={{
+                  transformStyle: "preserve-3d",
+                  transform: "perspective(1000px)",
+                }}
+                whileHover={{
+                  rotateX: [0, -10, 10, 0],
+                  rotateY: [0, 10, -10, 0],
+                  scale: 1.05,
+                }}
+              >
+                Vijit Mishra
+              </motion.span>
+            </motion.h1>
             
             <motion.p 
               className="text-neutral-600 mb-10 max-w-2xl mx-auto text-lg"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              style={{
+                transformStyle: "preserve-3d",
+                transform: "perspective(1000px)",
+              }}
             >
               FullStack Engineer with nearly 8+ years of experience in Software Design & Development. I specialize in building modern web applications and have international exposure across multiple markets including Singapore, Malaysia, Indonesia, and Vietnam.
             </motion.p>
@@ -616,28 +659,58 @@ const Index = () => {
               className="flex flex-col sm:flex-row justify-center gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
             >
-              <button
+              <motion.button
                 onClick={() => scrollToSection("contact")}
                 className="px-8 py-3 bg-gradient-to-r from-primary to-purple-500 text-white rounded-md hover:opacity-90 transition-colors animated-border"
+                whileHover={{
+                  scale: 1.05,
+                  rotateX: [0, -5, 5, 0],
+                  rotateY: [0, 5, -5, 0],
+                }}
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  transformStyle: "preserve-3d",
+                  transform: "perspective(1000px)",
+                }}
               >
                 Contact Me
-              </button>
-              <a
+              </motion.button>
+              <motion.a
                 href="/Vijit_Mishra_Resume_Updated.pdf" 
                 download
                 className="px-8 py-3 border border-neutral-300 rounded-md hover:bg-neutral-100 transition-colors flex items-center justify-center"
+                whileHover={{
+                  scale: 1.05,
+                  rotateX: [0, -5, 5, 0],
+                  rotateY: [0, 5, -5, 0],
+                }}
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  transformStyle: "preserve-3d",
+                  transform: "perspective(1000px)",
+                }}
               >
                 <ArrowDownIcon size={16} className="mr-2" />
                 Download Resume
-              </a>
-              <button
+              </motion.a>
+              <motion.button
                 onClick={() => scrollToSection("projects")}
                 className="px-8 py-3 border border-neutral-300 rounded-md hover:bg-neutral-100 transition-colors"
+                whileHover={{
+                  scale: 1.05,
+                  rotateX: [0, -5, 5, 0],
+                  rotateY: [0, 5, -5, 0],
+                }}
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  transformStyle: "preserve-3d",
+                  transform: "perspective(1000px)",
+                }}
               >
                 View My Work
-              </button>
+              </motion.button>
             </motion.div>
           </motion.div>
           
@@ -959,23 +1032,8 @@ const Index = () => {
                 Here are some of the projects I've worked on throughout my career, from enterprise applications to personal endeavors.
               </p>
               
-              {/* Enterprise Projects */}
-              <div className="mb-16">
-                <div className="flex items-center justify-center mb-8 space-x-4">
-                  <div className="h-px bg-neutral-200 w-12"></div>
-                  <h3 className="text-2xl font-semibold text-center gradient-text">Enterprise Projects</h3>
-                  <div className="h-px bg-neutral-200 w-12"></div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-                  {enterpriseProjects.map((project, index) => (
-                    <ProjectCard key={project.id} project={project} index={index} />
-                  ))}
-                </div>
-              </div>
-              
               {/* Latest Projects */}
-              <div>
+              <div className="mb-16">
                 <div className="flex items-center justify-center mb-8 space-x-4">
                   <div className="h-px bg-neutral-200 w-12"></div>
                   <h3 className="text-2xl font-semibold text-center gradient-text">My Latest Projects</h3>
@@ -984,6 +1042,21 @@ const Index = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
                   {latestProjects.map((project, index) => (
+                    <ProjectCard key={project.id} project={project} index={index} />
+                  ))}
+                </div>
+              </div>
+              
+              {/* Enterprise Projects */}
+              <div>
+                <div className="flex items-center justify-center mb-8 space-x-4">
+                  <div className="h-px bg-neutral-200 w-12"></div>
+                  <h3 className="text-2xl font-semibold text-center gradient-text">Enterprise Projects</h3>
+                  <div className="h-px bg-neutral-200 w-12"></div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                  {enterpriseProjects.map((project, index) => (
                     <ProjectCard key={project.id} project={project} index={index} />
                   ))}
                 </div>
