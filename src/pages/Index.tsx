@@ -678,7 +678,7 @@ const Index = () => {
                 Contact Me
               </motion.button>
               <motion.a
-                href="/Vijit_Mishra_Resume_Updated.pdf" 
+                href="/Vijit-Resume-2025.pdf" 
                 download
                 className="px-8 py-3 border border-neutral-300 rounded-md hover:bg-neutral-100 transition-colors flex items-center justify-center"
                 whileHover={{
